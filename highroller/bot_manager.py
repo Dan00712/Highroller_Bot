@@ -1,4 +1,4 @@
-from discord.bot import Bot
+from discord.ext.commands import Bot
 
 __bot: Bot | None = None
 

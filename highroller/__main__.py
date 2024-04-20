@@ -14,17 +14,34 @@ logger = logging.getLogger(__name__)
 
 logger.debug("loading .env...")
 dotenv.load_dotenv()
-logger.debug("loaded .env")
+logger.info("loaded .env")
 
 
+logger.debug("loading bot...")
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="/", intents=intents)
 bm.set_bot(bot)
+logger.info("loaded bot")
 
 # load other modules that are needed
 
 
+@bot.event
+async def on_ready():
+    logger.info("bot ready")
+    await bot.tree.sync()
+    logger.debug("synced")
+
+
+@bot.command()
+async def sync(ctx):
+    await bot.tree.sync()
+
+import highroller.dice
+
+
 def main():
+    logger.info("starting bot")
     token = os.environ["DISCORD_BOT_TOKEN"]
     bot.run(token)
 
