@@ -4,7 +4,7 @@
         "standard": {
             "class": "logging.Formatter",
             "format": "%(asctime)s\t%(levelname)s\t%(filename)s\t%(message)s",
-            "datefmt": "%d %b %y %H:%M:%S"
+            "datefmt": "%y-%m-%d: %H:%M:%S"
         }
     },
 

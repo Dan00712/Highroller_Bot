@@ -8,8 +8,10 @@ from discord.ext import commands
 import highroller.logging
 import highroller.bot_manager as bm
 
-
 highroller.logging.load_config()
+
+import highroller.dice
+
 logger = logging.getLogger(__name__)
 
 logger.debug("loading .env...")
@@ -19,8 +21,11 @@ logger.info("loaded .env")
 
 logger.debug("loading bot...")
 intents = discord.Intents.default()
-bot = commands.Bot(command_prefix="/", intents=intents)
+intents.message_content = True
+bot = commands.Bot(command_prefix="$", intents=intents)
 bm.set_bot(bot)
+
+
 logger.info("loaded bot")
 
 # load other modules that are needed
@@ -29,15 +34,20 @@ logger.info("loaded bot")
 @bot.event
 async def on_ready():
     logger.info("bot ready")
-    await bot.tree.sync()
     logger.debug("synced")
 
 
 @bot.command()
-async def sync(ctx):
+async def sync_highroller(ctx):
+    logger.debug("syncing cmds...")
     await bot.tree.sync()
+    logger.debug("synced cmds")
 
-import highroller.dice
+
+logger.debug("registering commands")
+highroller.dice.register_commands()
+
+logger.info("registered additional commands")
 
 
 def main():
