@@ -55,7 +55,7 @@ async def quick_roll(
                 rolls,
                 "these are thy results\n"
                 )
-        logger.debug("sending response \n%s", msg)
+        logger.debug("sending response: %s", repr(msg))
         await ctx.send(msg)
     except Exception as e:
         logger.critical("error received %s", e)
